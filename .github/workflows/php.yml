@@ -41,7 +41,7 @@ jobs:
         with:
           php-version: 8.1
       - name: PHPStan
-        run: vendor/bin/phpstan --asni --no-progress --xdebug --memory-limit=240M
+        run: vendor/bin/phpstan --ansi --no-progress --xdebug --memory-limit=240M
       - name: PHP-CS-Fixer
         run: vendor/bin/php-cs-fixer fix --config ./.php-cs-fixer.dist.php --dry-run --diff --ansi
       - name: Psalm
