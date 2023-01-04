@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  ov-page:
+    image: heraxles/php:1.0-symfony
+    container_name: ov-page
+    restart: unless-stopped
+    ports:
+      - "2888:2888"
+    volumes:
+      - ./:/var/www
+      - ./docker/php/ini/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./docker/php/ini/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    tty: true
+
+  ov-webserver:
+    image: nginx:latest
+    container_name: ov-webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    command: /bin/bash -c "nginx -t && nginx -g 'daemon off;'"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/snippets:/etc/nginx/snippets
+      - ./docker/nginx/logs:/var/log/nginx
+    tty: true
+
+  ov-db:
+    image: postgres:15.1
+    container_name: ov-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    tty: true
+
+volumes:
+  db-data:

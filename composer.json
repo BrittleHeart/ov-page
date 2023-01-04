@@ -7,14 +7,19 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.8",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.14",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.2.*",
         "symfony/runtime": "6.2.*",
-        "symfony/yaml": "6.2.*"
-    },
-    "require-dev": {
+        "symfony/translation": "6.2.*",
+        "symfony/twig-bundle": "6.2.*",
+        "symfony/yaml": "6.2.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -52,6 +57,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "phpstan": [
+            "phpstan analyse --memory-limit=240M --ansi --no-progress --xdebug"
+        ],
+        "psalm": [
+            "psalm"
         ]
     },
     "conflict": {
@@ -62,5 +73,16 @@
             "allow-contrib": false,
             "require": "6.2.*"
         }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.13",
+        "phpstan/phpstan": "^1.9",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "6.2.*",
+        "symfony/css-selector": "6.2.*",
+        "symfony/phpunit-bridge": "^6.2",
+        "symfony/stopwatch": "6.2.*",
+        "symfony/web-profiler-bundle": "6.2.*",
+        "vimeo/psalm": "^5.4"
     }
 }
