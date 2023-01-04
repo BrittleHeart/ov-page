@@ -17,6 +17,11 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: 8.1
+          command: install --no-interaction --no-scripts --no-progress --ansi --prefer-dist
   code_quality:
     needs: build
     runs-on: self-hosted
@@ -34,7 +39,7 @@ jobs:
       - name: PHP Setup
         uses: shivammathur/setup-php@v2
         with:
-          php_version: 8.1
+          php-version: 8.1
       - name: PHPStan
         run: ./vendor/bin/phpstan --asni --no-progress --xdebug --memory-limit 240M
       - name: PHP-CS-Fixer
