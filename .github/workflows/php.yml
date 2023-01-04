@@ -17,10 +17,6 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - uses: php-actions/composer@v6
-        with:
-          php_version: 8.1
-          command: install --no-interaction --no-scripts --ansi --no-progress --prefer-dist
   code_quality:
     needs: build
     runs-on: self-hosted
