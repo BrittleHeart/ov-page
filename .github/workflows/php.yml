@@ -61,7 +61,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       - name: PHPUnit tests
-        uses: actions/phpunit@v3
+        uses: php-actions/phpunit@v3
         with:
           configuration: ./phpunit.xml.dist
           memory_limit: 256M
