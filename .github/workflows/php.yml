@@ -1,0 +1,67 @@
+name: PHP Run test suite
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    # The most important property
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - uses: php-actions/composer@v6
+        with:
+          php_version: 8.1
+          command: install --no-interaction --no-scripts --ansi --no-progress --prefer-dist
+  code_quality:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: PHP Setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php_version: 8.1
+      - name: PHPStan
+        run: vendor/bin/phpstan --asni --no-progress --xdebug --memory-limit 240M
+      - name: PHP-CS-Fixer
+        run: vendor/bin/php-cs-fixer fix --config ./.php-cs-fixer.dist.php --dry-run --diff --ansi
+      - name: Psalm
+        run: vendor/bin/psalm
+  tests:
+    needs: code_quality
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: PHPUnit tests
+        uses: actions/phpunit@v3
+        with:
+          configuration: ./phpunit.xml.dist
+          memory_limi: 256M
+          php_version: 8.1

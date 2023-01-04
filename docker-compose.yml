@@ -41,6 +41,19 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     tty: true
+  
+  ov-self-runner:
+    image: tcardonne/github-runner:latest
+    container_name: ov-self-runner
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      RUNNER_NAME: ov-self-runner
+      RUNNER_REPOSITORY_URL: "https://github.com/BrittleHeart/ov-page"
+      RUNNER_LABELS: ov-self-runner
+      RUNNER_TOKEN: ${GITHUB_RUNNER_TOKEN}
+    tty: true
 
 volumes:
   db-data:
