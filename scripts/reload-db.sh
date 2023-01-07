@@ -33,7 +33,7 @@ if [ -z "$answer" ]; then
 fi
 
 if [ "$answer" != "${answer#[Yy]}" ] ;then
-    $DIR/../bin/console doctrine:fixtures:load --no-interaction
+    $DIR/../bin/console doctrine:fixtures:load --no-interaction \
 fi
 
 echo

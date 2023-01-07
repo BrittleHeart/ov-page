@@ -10,6 +10,7 @@
 ###< symfony/framework-bundle ###
 
 /docker/**/logs/*.log
+/docker/adminer/
 
 /.php-cs-fixer.cache
 .DS_Store
