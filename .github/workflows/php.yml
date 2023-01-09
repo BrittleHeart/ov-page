@@ -66,3 +66,9 @@ jobs:
           configuration: ./phpunit.xml.dist
           memory_limit: 256M
           php_version: 8.1
+      - name: Tests Coverage
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md

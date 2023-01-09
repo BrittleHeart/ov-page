@@ -31,3 +31,4 @@
 /backup/**/*.sql
 
 /.history # for vscode
+/.code-coverage-results.md
