@@ -9,9 +9,6 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * @psalm-suppress MixedArgument
- */
 class ResultFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
     use WithFaker;

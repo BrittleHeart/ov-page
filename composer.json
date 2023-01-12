@@ -70,6 +70,11 @@
             "php-cs-fixer:check": "php-cs-fixer fix --ansi --dry-run --diff --verbose",
             "phpstan": "phpstan analyse --memory-limit=240M --ansi --no-progress --xdebug",
             "psalm": "psalm"
+        },
+        "test": {
+            "clear:cache": "php bin/console cache:clear -e test",
+            "setup": "php bin/console setup:database -e test",
+            "phpunit": "php bin/phpunit"
         }
     },
     "conflict": {
@@ -85,8 +90,10 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.21",
         "friendsofphp/php-cs-fixer": "^3.13",
+        "liip/test-fixtures-bundle": "^2.5",
         "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9.5",
+        "psalm/plugin-symfony": "^5.0",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/maker-bundle": "^1.48",

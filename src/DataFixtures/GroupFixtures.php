@@ -9,9 +9,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
 class GroupFixtures extends Fixture implements FixtureGroupInterface
 {
     use WithFaker;

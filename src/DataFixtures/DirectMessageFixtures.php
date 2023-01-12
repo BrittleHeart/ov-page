@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Blog\DirectMessage;
+use App\Entity\User;
 use App\Repository\Blog\MessageRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -12,14 +13,18 @@ use Doctrine\Persistence\ObjectManager;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  */
-class DirectMessageFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
+class DirectMessageFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     private MessageRepository $messageRepository;
+    private ?User $userReference;
 
     public function __construct(
         MessageRepository $messageRepository,
     ) {
         $this->messageRepository = $messageRepository;
+        /* @var User */
+        if ($this->get)
+        $this->userReference = $this->getReference(UserFixtures::ADMIN_USER_REFERENCE);
     }
 
     public function load(ObjectManager $manager): void
@@ -28,8 +33,7 @@ class DirectMessageFixtures extends Fixture implements FixtureGroupInterface, De
 
         for ($i = 0; $i < count($messages); ++$i) {
             $directMessage = new DirectMessage();
-            /* @phpstan-ignore-next-line */
-            $directMessage->setReceiver($this->getReference(UserFixtures::ADMIN_USER_REFERENCE));
+            $directMessage->setReceiver($this->userReference);
             foreach ($messages as $message) {
                 $directMessage->addMessage($message);
             }

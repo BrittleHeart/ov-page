@@ -18,9 +18,6 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
 class PostFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     use WithFaker;
